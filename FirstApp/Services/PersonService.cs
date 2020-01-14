@@ -17,6 +17,8 @@ namespace FirstApp.Services
 
         public async Task<bool> Create(Person p)
         {
+            definePersonId(ref p);
+
             _context.Person.Add(p);
 
             try
@@ -25,7 +27,7 @@ namespace FirstApp.Services
             }
             catch (DbUpdateException)
             {
-                if (PersonExists(p.PersonId))
+                if (PersonExists(p.getPersonId()))
                 {
                     return true;
                 }
@@ -36,6 +38,14 @@ namespace FirstApp.Services
             }
 
             return false;
+        }
+
+        private void definePersonId(ref Person person)
+        {
+            //assign an ID for the instance
+            //normal you give a unique value like GUID type but in this case we will leave an random int
+
+            person.setPersonId(new Random().Next(100000));
         }
 
         public async Task<bool> Delete(int id)
@@ -89,7 +99,7 @@ namespace FirstApp.Services
 
         private bool PersonExists(int id)
         {
-            return _context.Person.Any(e => e.PersonId == id);
+            return _context.Person.Any(e => e.getPersonId() == id);
         }
     }
 }
