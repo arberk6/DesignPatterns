@@ -1,5 +1,5 @@
-﻿using FirstApp.Models;
-using FirstApp.Services;
+﻿using FirstAppAgain.Models;
+using FirstAppAgain.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FirstApp.Controllers
+namespace FirstAppAgain.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -78,14 +78,15 @@ namespace FirstApp.Controllers
         [EnableCors("AllowOrigin")]
         public async Task<ActionResult> PostPerson([FromBody]JObject json)
         {
+            string test = json.ToString();
             Person person = JsonConvert.DeserializeObject<Person>(json.ToString());
-            string userType = json["Type"].ToString();
+            string userType = json["TypeName"].ToString();
 
             var res = false;
 
             try
             {
-                res = await context.Create(person);
+                res = await context.Create(person, userType);
             }
             catch (DbUpdateException)
             {

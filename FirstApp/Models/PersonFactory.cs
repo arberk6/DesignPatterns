@@ -7,15 +7,16 @@ namespace FirstApp.Models
 {
     public class PersonFactory
     {
-        private static Dictionary<string, Person> person = new Dictionary<string, Person>();
+        static Dictionary<string, Person> person = new Dictionary<string, Person>() {
+             { "Student",new Student()},
+             { "Professor",new Professor()}
+        };
 
-        public PersonFactory(string name, string lastname, int age)
+        public PersonFactory()
         {
-            person.Add("Student", new Student(name, lastname, age));
-            person.Add("Professor", new Professor(name, lastname, age));
         }
 
-        public static Person getPerson(string type, string name, string lastname, int age)
+        public static Person getPerson(string type)
         {
             //if (type.Equals("Professor"))
             //{

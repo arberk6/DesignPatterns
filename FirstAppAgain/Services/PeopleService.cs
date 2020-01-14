@@ -1,23 +1,31 @@
-﻿using FirstApp.Models;
+﻿using FirstAppAgain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-namespace FirstApp.Services
+namespace FirstAppAgain.Services
 {
-    public class PersonService : IPeopleService
+    public class PeopleService : IPeopleService
     {
-        private readonly FirstAppContext _context;
-        public PersonService(FirstAppContext con)
+        private readonly firstappContext _context;
+        public PeopleService(firstappContext con)
         {
             _context = con;
         }
 
-        public async Task<bool> Create(Person p)
+        public async Task<bool> Create(Person p, string usertype)
         {
             definePersonId(ref p);
+
+            //rasti i perdorimit te factory pattern
+            Person obj = PersonFactory.createPerson(usertype);
+
+            obj.PersonId = p.PersonId;
+            obj.Name = p.Name;
+            obj.LastName = p.LastName;
+            obj.Age = p.Age;
 
             _context.Person.Add(p);
 

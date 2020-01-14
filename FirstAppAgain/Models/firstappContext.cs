@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System;
 
-namespace FirstApp.Models
+namespace FirstAppAgain.Models
 {
     public partial class firstappContext : DbContext
     {
@@ -23,7 +23,7 @@ namespace FirstApp.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=Hacktivist;Database=firstapp;Trusted_Connection=True;user id=arber;password=arber");
+                optionsBuilder.UseSqlServer("Server=Hacktivist;Database=firstapp;user id=arber;password=arber;");
             }
         }
 
@@ -39,7 +39,7 @@ namespace FirstApp.Models
 
                 entity.Property(e => e.Age).HasColumnName("age");
 
-                entity.Property(e => e.Lastname)
+                entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasColumnName("lastname")
                     .HasMaxLength(50)
