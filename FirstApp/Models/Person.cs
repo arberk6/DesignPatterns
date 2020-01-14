@@ -3,21 +3,31 @@ using System.Collections.Generic;
 
 namespace FirstApp.Models
 {
-    public partial class Person : PersonFactory
+    public partial class Person
     {
-        protected Person(string name, string lastname, int age)
+        public Person(string name, string lastname, int age)
         {
             Name = name;
             Lastname = lastname;
             Age = age;
         }
 
-        public int PersonId { get; set; }
-        public string Name { get; set; }
-        public string Lastname { get; set; }
-        public int Age { get; set; }
-        public int? Type { get; set; }
+        private int PersonId { get; set; }
+        private string Name { get; set; }
+        private string Lastname { get; set; }
+        private int Age { get; set; }
+        private int? Type { get; set; }
 
-        public virtual UserType TypeNavigation { get; set; }
+        public void setPersonId(int id)
+        {
+            this.PersonId = id;
+        }
+
+        public int getPersonId()
+        {
+            return this.PersonId;
+        }
+
+        //public virtual UserType TypeNavigation { get; set; }
     }
 }

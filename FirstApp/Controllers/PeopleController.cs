@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,7 @@ namespace FirstApp.Controllers
 
         // GET: api/People
         [HttpGet]
-        [EnableCors("Allowrigin")]
+        [EnableCors("AllowOrigin")]
         public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
         {
             return await context.GetAllPersons();
@@ -32,7 +34,7 @@ namespace FirstApp.Controllers
 
         // GET: api/People/5
         [HttpGet("{id}")]
-        [EnableCors("Allowrigin")]
+        [EnableCors("AllowOrigin")]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
             var person = await context.GetPerson(id);
@@ -47,11 +49,11 @@ namespace FirstApp.Controllers
 
         // PUT: api/People/5
         [HttpPut("{id}")]
-        [EnableCors("Allowrigin")]
+        [EnableCors("AllowOrigin")]
         public async Task<IActionResult> PutPerson(int id, Person person)
         {
 
-            if (id != person.PersonId)
+            if (id != person.getPersonId())
             {
                 return BadRequest();
             }
@@ -73,8 +75,8 @@ namespace FirstApp.Controllers
 
         // POST: api/People/create
         [HttpPost("Create")]
-        [EnableCors("Allowrigin")]
-        public async Task<ActionResult> PostPerson([FromBody] Person person)
+        [EnableCors("AllowOrigin")]
+        public async Task<ActionResult> PostPerson([FromBody]Person person)
         {
             var res = false;
 
@@ -84,9 +86,9 @@ namespace FirstApp.Controllers
             }
             catch (DbUpdateException)
             {
-                {
-                    throw;
-                }
+
+                throw;
+
             }
             if (res)
             {
@@ -98,7 +100,7 @@ namespace FirstApp.Controllers
 
         // DELETE: api/People/5
         [HttpDelete("{id}")]
-        [EnableCors("Allowrigin")]
+        [EnableCors("AllowOrigin")]
         public async Task<ActionResult<bool>> DeletePerson(int id)
         {
             var res = await context.Delete(id);

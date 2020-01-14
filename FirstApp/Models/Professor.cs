@@ -12,6 +12,5 @@ namespace FirstApp.Models
 
         }
 
-        public Professor() : base(null, null, -1) { }
     }
 }
